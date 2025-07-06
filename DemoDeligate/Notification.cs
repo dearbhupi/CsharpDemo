@@ -1,35 +1,40 @@
 using System;
 
-public class FireAlarmSystem
+public class Button
 {
-    // Delegate declaration
-    public delegate void AlarmHandler(string location);
+    // Declare an event using a delegate
+    public event Action OnClick;
 
-    public static void NotifyFireDepartment(string location)
+    public void Click()
     {
-        Console.WriteLine($"🚒 Fire department notified of fire at {location}");
+        Console.WriteLine("🔘 Button clicked.");
+        //OnClick?.Invoke(); // Call all subscribed methods
+        if (OnClick != null)
+            OnClick();
+    }
+}
+
+public class Program
+{
+    public static void ShowAlert()
+    {
+        Console.WriteLine("⚠️ Alert: Button was clicked!");
     }
 
-    public static void NotifyBuildingManager(string location)
+    public static void LogClick()
     {
-        Console.WriteLine($"🏢 Building manager alerted about fire at {location}");
-    }
-
-    public static void NotifySecurityTeam(string location)
-    {
-        Console.WriteLine($"🛡️ Security team alerted about fire at {location}");
+        Console.WriteLine("📝 Log: Click event registered.");
     }
 
     public static void Main()
     {
-        AlarmHandler alarm;
+        Button btn = new Button();
 
-        // Add multiple methods to the delegate (multicast)
-        alarm = NotifyFireDepartment;
-        alarm += NotifyBuildingManager;
-        alarm += NotifySecurityTeam;
+        // Subscribe multiple methods to the button's click event
+        btn.OnClick += ShowAlert;
+        btn.OnClick += LogClick;
 
-        // Invoke the multicast delegate
-        alarm("Block A, 2nd Floor");
+        // Simulate button click
+        btn.Click();
     }
 }
