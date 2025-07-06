@@ -1,34 +1,22 @@
-//using System;
+// Example notification handlers (equivalent to NotificationServices)
+using System;
 
+namespace DemoDeligate;
 
-//namespace DeligateDemo;
+public class NotificationServices
+{
+    public static void ConsoleNotification(string message)
+    {
+        Console.WriteLine($"Console Notification: {message}");
+    }
 
-//public class NotificationInterface
-//{
-    // Introduce the Interface for Notification services
-//    public interface INotificationService
-//    {
-//        void SendNotification(string message);
-//    }
-//}
+    public static void EmailNotification(string message)
+    {
+        Console.WriteLine($"Email Notification: Sending email with message - {message}");
+    }
 
-//public class SMSNotificationServices : NotificationInterface.INotificationService
-//    {
-//        public void SendNotification(string message)
-//        {
-//            Console.WriteLine("Sending notification by SMS: " + message);
-//        }
-//    }
-
-
-
-//public class EmailNotificationServices : NotificationInterface.INotificationService
-//    {
-//        public void SendNotification(string message)
-//        {
-//            Console.WriteLine("Sending notification by email: " + message);
-//        }
-//    }
-
-
-
+    public static void LogNotification(string message)
+    {
+        Console.WriteLine($"Log Notification: Logging to file - {message}");
+    }
+}

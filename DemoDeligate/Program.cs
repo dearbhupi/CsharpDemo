@@ -10,23 +10,28 @@ namespace DelegateDemo // Note: "DeligateDemo" in your code seems to be a typo; 
     {
         static void Main(string[] args)
         {
-            // Create an instance of NotificationServices
-            // Subscribe to the event with different handlers
-            
-            // Create an instance of Car, passing NotificationServices
+            // Create a Car instance
             Car car = new Car();
-            
-            car.OnNotification += message => Console.WriteLine($"SMS Notification: {message}");
-            car.OnNotification += message => Console.WriteLine($"EmailNotification: {message} ");
 
-            // Call the StartEngine method
+            // Subscribe multiple handlers to the OnEngineStarted event
+            car.OnEngineStarted += NotificationServices.ConsoleNotification;
+            car.OnEngineStarted += NotificationServices.EmailNotification;
+            car.OnEngineStarted += NotificationServices.LogNotification;
+
+            // Optionally, add an inline handler using a lambda
+            car.OnEngineStarted += message => Console.WriteLine($"Inline Handler: {message}");
+
+            // Start the engine, triggering all subscribed handlers
             car.StartEngine();
-           
 
-            // Keep console open to view output
+            Console.WriteLine("\n=== Demonstrating Unsubscribing ===");
+            // Unsubscribe one handler to show flexibility
+            car.OnEngineStarted -= NotificationServices.EmailNotification;
+            car.StartEngine();
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
     }
-    
+
 }

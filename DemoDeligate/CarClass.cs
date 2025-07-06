@@ -2,40 +2,44 @@
 
 namespace DemoDeligate;
 
-// car with events
-public class Car
-{
-    // define a deligate for notification events
+
+
+// Define a delegate for the notification event
     public delegate void NotificationHandler(string message);
-    
-    public event NotificationHandler OnNotification;
 
-
-    public void StartEngine()
+    // Car class using events instead of a concrete notification service
+    public class Car
     {
-        Console.WriteLine("Engine starting...");
+        // Event to notify subscribers when something happens
+        public event NotificationHandler OnEngineStarted;
 
-        // sending notification after starting the engine
-        if (OnNotification != null)
+        public void StartEngine()
         {
-            OnNotification("Someone Start my Car and Engine starting...");
+            Console.WriteLine("Engine starting...");
+            // Raise the event with a message
+            OnEngineStarted?.Invoke("The car engine has started.");
         }
     }
-}
 
-class Expalin
-{
-    private string text = """
-                                            The provided example demonstrates tight coupling between the Car class and the NotificationServices class, as Car directly depends on a concrete implementation of NotificationServices. This makes the code less flexible, harder to test, and difficult to extend (e.g., if you want to add different notification methods like email or SMS). A better approach is to use dependency injection with an interface to achieve loose coupling, making the code more modular, testable, and maintainable.
-                                            Below, I'll explain why the original example is problematic, then provide a better implementation using an interface-based approach, and show how to run it.
-                                                Why the Original Example is Tightly Coupled
-                                            Direct Dependency on Concrete Class:
-                                            The Car class directly references the concrete NotificationServices class in its constructor and field. This means Car can only work with NotificationServices and cannot easily use a different notification mechanism (e.g., SMS, email, or logging).
-                                                Lack of Flexibility:
-                                            If you want to change the notification behavior (e.g., send an email instead of a console message), you’d need to modify the Car class or create a new concrete class, violating the Open/Closed Principle (software should be open for extension but closed for modification).
-                                            Testing Challenges:
-                                            Unit testing the Car class is harder because you can’t easily mock or substitute NotificationServices without creating a real instance, making it difficult to isolate Car's behavior.
-                                                Namespace Misnomer:
-                                            The namespace DelegateDemo suggests the use of delegates or events, but the example doesn’t use them, missing an opportunity to demonstrate a more flexible notification mechanism.
-                          """;
-}
+
+
+    class explanation
+    {
+        private string text = """
+                              Key Improvements in the After Code
+                              Loose Coupling:
+                              The Car class no longer depends on a concrete NotificationServices class. Instead, it uses an event (OnEngineStarted) based on a delegate (NotificationHandler).
+                              Any method matching the delegate signature (void (string)) can subscribe to the event, making the system highly flexible.
+                              Multiple Subscribers:
+                              The event-based approach allows multiple notification handlers (e.g., console, email, logging) to be notified when the engine starts, unlike the single-service limitation in the before code.
+                              Dynamic Subscription:
+                              Handlers can be added or removed at runtime (demonstrated by unsubscribing EmailNotification in the second StartEngine call).
+                              This supports scenarios where notification needs change dynamically.
+                              Testability:
+                              Unit testing is easier because you can subscribe test handlers or mocks to the OnEngineStarted event without needing a concrete service.
+                              Alignment with DelegateDemo:
+                              The use of a delegate (NotificationHandler) and event (OnEngineStarted) fulfills the intent of the DelegateDemo namespace, making the code more idiomatic.
+                              Extensibility:
+                              New notification types can be added by creating methods with the delegate signature and subscribing them to the event, without modifying Car.
+                              """;
+    }
