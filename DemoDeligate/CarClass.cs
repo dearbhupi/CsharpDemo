@@ -1,25 +1,14 @@
-using System;
+using DeligateDemo;
 
-
-namespace DeligateDemo;
-
-public class NotificationServices
-
-{
-    public void SendNotification(string message)
-    {
-        Console.WriteLine("Sending notification : " + message);
-    }
-    
-}
+namespace DemoDeligate;
 
 
 public class Car
 {
-    private NotificationServices _notificationServices;
+    private  NotificationInterface.INotificationService _notificationServices;
     
     // create constructor for the class which accept the Notification services
-    public Car(NotificationServices notificationServices)
+    public Car(NotificationInterface.INotificationService notificationServices)
     {
         _notificationServices = notificationServices;
     }
