@@ -1,30 +1,35 @@
 using System;
 
-public class Notifications
+public class FireAlarmSystem
 {
-    // Step 1: Define the delegate here the method defination 
-    public delegate void Notify(string message);
+    // Delegate declaration
+    public delegate void AlarmHandler(string location);
 
-    // Step 2: Define methods with matching signatures
-    public static void SMSNotification(string message)
+    public static void NotifyFireDepartment(string location)
     {
-        Console.WriteLine($"SMS Notification : {message}");
+        Console.WriteLine($"🚒 Fire department notified of fire at {location}");
     }
 
-    public static void EmailNotification(string message)
+    public static void NotifyBuildingManager(string location)
     {
-        Console.WriteLine($"Email message : {message} ");
+        Console.WriteLine($"🏢 Building manager alerted about fire at {location}");
+    }
+
+    public static void NotifySecurityTeam(string location)
+    {
+        Console.WriteLine($"🛡️ Security team alerted about fire at {location}");
     }
 
     public static void Main()
     {
-        // Step 3: Use the delegate to call different methods
-        Notify ntf;
+        AlarmHandler alarm;
 
-        ntf = SMSNotification;
-        ntf("your OTP is 1234");  // Calls ItalianChef
+        // Add multiple methods to the delegate (multicast)
+        alarm = NotifyFireDepartment;
+        alarm += NotifyBuildingManager;
+        alarm += NotifySecurityTeam;
 
-        ntf = EmailNotification;
-        ntf("your recipt number is 112233"); // Calls ChineseChef
+        // Invoke the multicast delegate
+        alarm("Block A, 2nd Floor");
     }
 }
