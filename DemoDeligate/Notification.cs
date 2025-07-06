@@ -1,19 +1,13 @@
-using System;
-
-public class AlarmSystem
+public class UIController
 {
-    // Step 1: Define a delegate (optional with EventHandler pattern)
-    public delegate void AlarmEventHandler(string message);
+    // Declare the event using EventHandler<T>
+    public event EventHandler<ButtonClickedEventArgs> ButtonClicked;
 
-    // Step 2: Declare an event using the delegate
-    public event AlarmEventHandler OnAlarmTriggered;
-
-    public void TriggerAlarm()
+    public void SimulateButtonClick(string buttonName)
     {
-        Console.WriteLine("🚨 Alarm triggered!");
-        // Step 3: Raise the event (notify subscribers)
-        //OnAlarmTriggered?.Invoke("Fire detected in Sector 7G!");
-        if (OnAlarmTriggered != null)
-            OnAlarmTriggered("Fire detected on Sector 13");
+        Console.WriteLine($"🔘 {buttonName} button clicked!");
+
+        // Raise the event
+        ButtonClicked?.Invoke(this, new ButtonClickedEventArgs(buttonName));
     }
 }

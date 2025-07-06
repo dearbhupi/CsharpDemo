@@ -9,6 +9,8 @@
 
     <ItemGroup>
       <PackageReference Include="Nunit.Framework.TestCaseStorage" Version="1.0.1" />
+      <PackageReference Include="WinFormAnimation" Version="1.6.0.4" />
+      <PackageReference Include="WinForms.Library" Version="1.0.61" />
       <PackageReference Include="xunit.extensibility.core" Version="2.9.3" />
     </ItemGroup>
 
