@@ -2,7 +2,7 @@ using System;
 
 public class Restaurant
 {
-    // Step 1: Define the delegate
+    // Step 1: Define the delegate here the method defination of deligate is equal to method like ItalianChef or chineseChef
     public delegate void CookDelegate(string dish);
 
     // Step 2: Define methods with matching signatures
