@@ -7,7 +7,8 @@ namespace DeligateDemo;
 
 public class Car
 {
-    private NotificationServices _notificationServices;
+    // first create the instance of NotificationService 
+    private NotificationServices _notificationServices = new NotificationServices();
     
     // create constructor for the class which accept the Notification services
     public Car(NotificationServices notificationServices)
