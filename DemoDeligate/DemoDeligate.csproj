@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Nunit.Framework.TestCaseStorage" Version="1.0.1" />
+      <PackageReference Include="xunit.extensibility.core" Version="2.9.3" />
+    </ItemGroup>
+
 </Project>
