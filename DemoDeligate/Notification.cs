@@ -1,40 +1,19 @@
 using System;
 
-public class Button
+public class AlarmSystem
 {
-    // Declare an event using a delegate
-    public event Action OnClick;
+    // Step 1: Define a delegate (optional with EventHandler pattern)
+    public delegate void AlarmEventHandler(string message);
 
-    public void Click()
+    // Step 2: Declare an event using the delegate
+    public event AlarmEventHandler OnAlarmTriggered;
+
+    public void TriggerAlarm()
     {
-        Console.WriteLine("🔘 Button clicked.");
-        //OnClick?.Invoke(); // Call all subscribed methods
-        if (OnClick != null)
-            OnClick();
-    }
-}
-
-public class Program
-{
-    public static void ShowAlert()
-    {
-        Console.WriteLine("⚠️ Alert: Button was clicked!");
-    }
-
-    public static void LogClick()
-    {
-        Console.WriteLine("📝 Log: Click event registered.");
-    }
-
-    public static void Main()
-    {
-        Button btn = new Button();
-
-        // Subscribe multiple methods to the button's click event
-        btn.OnClick += ShowAlert;
-        btn.OnClick += LogClick;
-
-        // Simulate button click
-        btn.Click();
+        Console.WriteLine("🚨 Alarm triggered!");
+        // Step 3: Raise the event (notify subscribers)
+        //OnAlarmTriggered?.Invoke("Fire detected in Sector 7G!");
+        if (OnAlarmTriggered != null)
+            OnAlarmTriggered("Fire detected on Sector 13");
     }
 }
