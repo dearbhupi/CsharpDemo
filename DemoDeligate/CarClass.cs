@@ -1,25 +1,27 @@
-//using DeligateDemo;
+using DeligateDemo;
 
 namespace DemoDeligate;
 
 // car with events
 public class Car
 {
-    // define a deligate for notification events
-    public delegate void NotificationHandler(string message);
     
-    public event NotificationHandler OnNotification;
-
+    
+    
+    private  NotificationInterface.INotificationService _notificationServices;
+    
+    // create constructor for the class which accept the Notification services
+    public Car(NotificationInterface.INotificationService notificationServices)
+    {
+        _notificationServices = notificationServices;
+    }
 
     public void StartEngine()
     {
         Console.WriteLine("Engine starting...");
-
+        
         // sending notification after starting the engine
-        if (OnNotification != null)
-        {
-            OnNotification("Someone Start my Car and Engine starting...");
-        }
+        _notificationServices.SendNotification("Someone Start my Car and Engine starting...");
     }
 }
 
